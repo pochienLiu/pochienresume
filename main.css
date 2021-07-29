@@ -1,0 +1,784 @@
+.timeline {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* The actual timeline (the vertical ruler) */
+  .timeline::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    background-color: lightskyblue;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -3px;
+  }
+  
+  /* Container around content */
+  .container1 {
+    padding: 10px 40px;
+    position: relative;
+    background-color: inherit;
+    width: 50%;
+  
+   
+  }
+  
+  /* The circles on the timeline  圓點*/
+  .container1::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: -15px;
+    background-color: white;
+    border: 7px solid Moccasin;
+    top: 15px;
+    border-radius: 50%;
+    z-index: 1;
+   
+  }
+  
+  /* Place the container to the left */
+  .left {
+    left: 0;
+  }
+  
+  /* Place the container to the right */
+  .right {
+    left: 50%;
+  }
+  
+  /* Add arrows to the left container (pointing right) */
+  .left::before {
+    content: " ";
+    height: 0;
+    position: absolute;
+    top: 22px;
+    width: 0;
+    z-index: 1;
+    right: 30px;
+    border: medium solid white;
+    border-width: 10px 0 10px 10px;
+    border-color: transparent transparent transparent SteelBlue;
+  }
+
+  /* Add arrows to the right container (pointing left) */
+  .right::before {
+    content: " ";
+    height: 0;
+    position: absolute;
+    top: 22px;
+    width: 0;
+    z-index: 1;
+    left: 30px;
+    border: medium solid white;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent SteelBlue transparent transparent;
+  }
+  
+  /* Fix the circle for containers on the right side */
+  .right::after {
+    left: -16px;
+  }
+  
+  /* The actual content */
+  .content {
+    padding: 20px 30px;
+    background-color: white;
+    position: relative;
+    border-radius: 6px;
+    border: 3px solid SteelBlue;
+  }
+  .content:hover {
+    background-color: rgba(70, 131, 180, 0.123);
+    border: none;
+  }
+  .content h4{
+    font-weight: bolder;
+    color:  #ff5c33;
+  }
+  /* Media queries - Responsive timeline on screens less than 600px wide */
+  @media screen and (max-width: 600px) {
+      /* Place the timelime to the left */
+      .timeline::after {
+          left: 31px;
+      }
+  
+      /* Full-width containers */
+      .container1 {
+          width: 100%;
+          padding-left: 70px;
+          padding-right: 25px;
+      }
+  
+          /* Make sure that all arrows are pointing leftwards */
+          .container1::before {
+              left: 60px;
+              border: medium solid white;
+              border-width: 10px 10px 10px 0;
+              border-color: transparent SteelBlue transparent transparent;
+          }
+  
+      /* Make sure all circles are at the same spot */
+      .left::after, .right::after {
+          left: 15px;
+      }
+  
+      /* Make all right containers behave like the left ones */
+      .right {
+          left: 0%;
+      }
+  }
+  
+  
+  .btn1 {
+    background-color: white;
+    padding: 10px 32px;
+    text-align: center;
+    font-size: 18px;
+    margin: 4px 2px;
+    transition: 0.3s;
+    border-radius: 30px;
+    border: 2px solid PaleVioletRed ;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  .btn1:hover {
+    background-color: PaleVioletRed;
+    color: white;
+  }
+  
+  
+  
+  
+  .container {
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    
+  }
+  /* popup (background)  display: flex; visibility: hidden;*/
+  .popup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2;
+    visibility: hidden;
+    opacity: 0;
+    overflow: hiden;
+    transition: .64s ease-in-out;
+    
+    
+  }
+  .popup-inner {
+    position: relative;
+    bottom: -100vw;
+    right: -100vh;
+    display: flex;
+    align-items: center;
+    max-width: 800px;
+    max-height: 600px;
+    width: 60%;
+    height: 80%;
+    background-color: #fff;
+    transform: rotate(32deg);
+    transition: .64s ease-in-out;
+    
+    
+  }
+  .popupphoto {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 80%;
+    height: 100%;
+    overflow: hidden;
+   
+    
+  }
+  .popupphoto img {
+    width: auto;
+    height: 100%;
+    border-width: 15px;
+   
+  }
+  .popuptext {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 60%;
+    height: 100%;
+    padding: 4rem;
+    
+    
+  }
+  .popuptext h1 {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    color: #0A0A0A;
+  }
+  .popuptext p {
+    font-size: 15px;
+    color: #686868;
+    line-height: 1.5;
+  }
+   
+  .popuptext a {
+   text-decoration: none;
+   color:  #47BDFF;
+  }
+  .popup:target {
+    visibility: visible;
+    opacity: 1;
+  }
+  .popup:target .popup-inner {
+    bottom: 0;
+    right: 0;
+    transform: rotate(0);
+  
+  }
+  .closepopup {
+    position: absolute;
+    right: -1rem;
+    top: -1rem;
+    width: 3rem;
+    height: 3rem;
+    font-size: .875rem;
+    font-weight: 300;
+    border-radius: 100%;
+    background-color: #47BDFF;
+    z-index: 4;
+    color: #fff;
+    line-height: 3rem;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  
+  
+  
+  .img2 {vertical-align: middle;}
+  
+  /* Slideshow container */
+  .slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+  }
+  
+  /* Next & previous buttons */
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+  }
+  
+  /* Position the "next button" to the right */
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+  
+  /* On hover, add a black background color with a little bit see-through */
+  .prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
+  
+  /* Caption text */
+  .text {
+    color: black;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(255,255,255,0.8);
+  }
+  
+  /* Number text (1/3 etc) */
+  .numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+  }
+  
+  
+  /* Fading animation */
+  .fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+  
+  @-webkit-keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+  }
+  
+  @keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+  }
+  
+  /* On smaller screens, decrease text size */
+  @media  screen and (max-width: 786px) {
+    .prev, .next,.text,.popuptext p,.popuptext h1 {font-size: 10px}
+  }
+
+
+/* pop11 */  
+.container11 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* popup (background)  display: flex; visibility: hidden;*/
+  .popup11 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2;
+    visibility: hidden;
+    opacity: 0;
+    overflow: hiden;
+    transition: .64s ease-in-out;
+  }
+  .popup-inner11 {
+    position: relative;
+    bottom: -100vw;
+    right: -100vh;
+    display: flex;
+    align-items: center;
+    max-width: 800px;
+    max-height: 600px;
+    width: 60%;
+    height: 80%;
+    background-color: #fff;
+    transform: rotate(32deg);
+    transition: .64s ease-in-out;
+  }
+  .popupphoto11 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 80%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .popupphoto11 img {
+    width: auto;
+    height: 100%;
+    border-width: 15px;
+  }
+  .popuptext11 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 60%;
+    height: 100%;
+    padding: 4rem;
+  }
+  .popuptext11 h1 {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    color: #0A0A0A;
+  }
+  .popuptext11 p {
+    font-size: 15px;
+    color: #686868;
+    line-height: 1.5;
+  }
+  .popuptext11 a {
+   text-decoration: none;
+   color:  #47BDFF;
+  }
+  .popup11:target {
+    visibility: visible;
+    opacity: 1;
+  }
+  .popup11:target .popup-inner11 {
+    bottom: 0;
+    right: 0;
+    transform: rotate(0);
+  }
+  .closepopup11 {
+    position: absolute;
+    right: -1rem;
+    top: -1rem;
+    width: 3rem;
+    height: 3rem;
+    font-size: .875rem;
+    font-weight: 300;
+    border-radius: 100%;
+    background-color: #47BDFF;
+    z-index: 4;
+    color: #fff;
+    line-height: 3rem;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .img11 {vertical-align: middle;}
+  
+  /* Slideshow container */
+  .slideshow-container11 {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+  }
+  /* Next & previous buttons */
+  .prev11, .next11 {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+  }
+  /* Position the "next button" to the right */
+  .next11 {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+  /* On hover, add a black background color with a little bit see-through */
+  .prev11:hover, .next11:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
+  /* Caption text */
+  .text11 {
+    color: black;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(255,255,255,0.8);
+  }
+  /* Fading animation */
+  .fade11 {
+    -webkit-animation-name: fade11;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade11;
+    animation-duration: 1.5s;
+  }
+  @-webkit-keyframes fade11 {
+    from {opacity: .4} 
+    to {opacity: 1}
+  }
+  @keyframes fade11 {
+    from {opacity: .4} 
+    to {opacity: 1}
+  }
+  /* On smaller screens, decrease text size */
+  @media  screen and (max-width: 786px) {
+    .prev11, .next11,.text11,.popuptext11 p,.popuptext11 h1 {font-size: 10px}
+  }
+
+  /* pop22 */  
+.container22 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* popup (background)  display: flex; visibility: hidden;*/
+  .popup22 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2;
+    visibility: hidden;
+    opacity: 0;
+    overflow: hiden;
+    transition: .64s ease-in-out;
+  }
+  .popup-inner22 {
+    position: relative;
+    bottom: -100vw;
+    right: -100vh;
+    display: flex;
+    align-items: center;
+    max-width: 800px;
+    max-height: 600px;
+    width: 60%;
+    height: 80%;
+    background-color: #fff;
+    transform: rotate(32deg);
+    transition: .64s ease-in-out;
+  }
+  .popupphoto22 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 80%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .popupphoto22 img {
+    width: auto;
+    height: 100%;
+    border-width: 15px;
+  }
+  .popuptext22 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 60%;
+    height: 100%;
+    padding: 4rem;
+  }
+  .popuptext22 h1 {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    color: #0A0A0A;
+  }
+  .popuptext22 p {
+    font-size: 15px;
+    color: #686868;
+    line-height: 1.5;
+  }
+  .popuptext22 a {
+   text-decoration: none;
+   color:  #47BDFF;
+  }
+  .popup22:target {
+    visibility: visible;
+    opacity: 1;
+  }
+  .popup22:target .popup-inner22 {
+    bottom: 0;
+    right: 0;
+    transform: rotate(0);
+  }
+  .closepopup22 {
+    position: absolute;
+    right: -1rem;
+    top: -1rem;
+    width: 3rem;
+    height: 3rem;
+    font-size: .875rem;
+    font-weight: 300;
+    border-radius: 100%;
+    background-color: #47BDFF;
+    z-index: 4;
+    color: #fff;
+    line-height: 3rem;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .img22 {vertical-align: middle;}
+  
+  /* Slideshow container */
+  .slideshow-container22 {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+  }
+  /* Next & previous buttons */
+  .prev22, .next22 {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+  }
+  /* Position the "next button" to the right */
+  .next22 {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+  /* On hover, add a black background color with a little bit see-through */
+  .prev22:hover, .next22:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
+  /* Caption text */
+  .text22 {
+    color: black;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(255,255,255,0.8);
+  }
+  /* Fading animation */
+  .fade22 {
+    -webkit-animation-name: fade22;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade22;
+    animation-duration: 1.5s;
+  }
+  @-webkit-keyframes fade22 {
+    from {opacity: .4} 
+    to {opacity: 1}
+  }
+  @keyframes fade22 {
+    from {opacity: .4} 
+    to {opacity: 1}
+  }
+  /* On smaller screens, decrease text size */
+  @media  screen and (max-width: 786px) {
+    .prev22, .next22,.text22,.popuptext22 p,.popuptext22 h1 {font-size: 10px}
+  }
+
+  .a_link{
+    text-decoration: none;
+    color: rgb(69, 160, 212);
+  }
+  .a_link:hover{
+      text-decoration: underline;
+      font-size:150%;
+      color: BlueViolet;
+  }
+  textarea {
+    width: 100%;
+    height: 100px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+}
+textarea:hover{
+    border: 3px solid LightSteelBlue;
+}
+input[type=text] {
+    width: 100%;
+    padding: 10px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+    border-radius: 4px;
+}
+input[type=text]:focus {
+    border: 3px solid LightSteelBlue;
+}
+.sent {
+    background-color: LightSlateGray;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    font-size: 16px;
+    margin: 2px 2px;
+    opacity: 0.6;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .sent:hover {opacity: 1}
+  .psize{
+      font-size: 2em;
+      font-weight: bold;
+  }
+
+  
+  .img1 {
+    border-radius: 50%;  
+}
+
+.radius{
+    border-radius: 300px 300px 16px 16px;
+}
+
+.wrapper {
+  height: 45vh;
+  /*This part is important for centering*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.typing-demo {
+  width: 19ch;
+  animation: typing 2s steps(19), blink .5s step-end infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid;
+  font-family: monospace;
+  font-size: 3em;
+}
+
+@keyframes typing {
+  from {
+    width: 0
+  }
+}
+    
+@keyframes blink {
+  50% {
+    border-color: transparent
+  }
+}
+
+.box-shadow {
+    box-shadow:5px 5px 5px grey;
+}
+
+
+  
